@@ -83,3 +83,24 @@ void MainWindow::btnClick() {
     }
     std::cout << "=================" << std::endl;
 }
+
+void MainWindow::on_action_triggered()
+{
+    for (int i = 0; i < 15; i ++) {
+        for (int j = 0; j < 15; j ++) {
+            Board[i][j] = 0;
+            QPushButton *btn = (QPushButton *)btnList[j+i*15];
+            btn->setStyleSheet("border-image: url(:/new/prefix1/000.png);");
+        }
+    }
+}
+
+void MainWindow::on_actionPVP_triggered()
+{
+    qDebug("######");
+}
+
+void MainWindow::on_actionPVE_triggered()
+{
+    qDebug("%%%%%%");
+}

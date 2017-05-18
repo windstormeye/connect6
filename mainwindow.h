@@ -24,6 +24,10 @@ private:
 public slots:
     void btnClick();
 
+private slots:
+    void on_action_triggered();
+    void on_actionPVP_triggered();
+    void on_actionPVE_triggered();
 };
 
 #endif // MAINWINDOW_H
