@@ -16,6 +16,11 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    int judga_line(int ln, int XS, int YS, int dx, int dy);
+    int judga(int ln);
+
+    void clearBoard();
+    void NoEnableBoard();
 private:
     Ui::MainWindow *ui;
     QList <QPushButton *> btnList;
@@ -26,8 +31,6 @@ public slots:
 
 private slots:
     void on_action_triggered();
-    void on_actionPVP_triggered();
-    void on_actionPVE_triggered();
 };
 
 #endif // MAINWINDOW_H
