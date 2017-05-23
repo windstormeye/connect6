@@ -7,6 +7,8 @@
 static bool isBlack;
 // 记录下子次数
 static int times;
+// 是否第一次下子
+static int isFirst;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
      */
     this->setWindowTitle("六子棋");
     isBlack = true;
+    isFirst = 0;
 
     /*
      * 棋盘的初始化
@@ -60,11 +63,17 @@ void MainWindow::btnClick() {
         btn->setEnabled(false);
         Board[y][x] = 1;
 
-        times++;
-        if (times == 2) {
+        if (isFirst < 2) {
+            isFirst ++;
             isBlack = false;
-            times = 0;
+        } else {
+            times++;
+            if (times == 2) {
+                isBlack = false;
+                times = 0;
+            }
         }
+
         if (judga(15)) {
             // QMessageBox点击按钮后右响应的
             int nRet = QMessageBox::question(NULL, "提示", "白子获胜，是否重新开始", QMessageBox::Yes, QMessageBox::No);
@@ -81,14 +90,21 @@ void MainWindow::btnClick() {
         btn->setStyleSheet("border-image: url(:/new/prefix1/222.png);");
         btn->setEnabled(false);
         Board[y][x] = -1;
-            times++;
-        if (times == 2) {
+
+        if (isFirst < 2) {
+            isFirst ++;
             isBlack = true;
-            times = 0;
+        } else {
+            times++;
+            if (times == 2) {
+                isBlack = true;
+                times = 0;
+            }
         }
+
         if (judga(15)) {
             // QMessageBox点击按钮后右响应的
-            int nRet = QMessageBox::question(NULL, "提示", "白子获胜，是否重新开始", QMessageBox::Yes, QMessageBox::No);
+            int nRet = QMessageBox::question(NULL, "提示", "黑子获胜，是否重新开始", QMessageBox::Yes, QMessageBox::No);
             // 选择是
             if (QMessageBox::Yes == nRet) {
                 clearBoard();
@@ -100,13 +116,6 @@ void MainWindow::btnClick() {
         }
     }
 
-//    for (int i = 0; i < 15; i++) {
-//        for (int j = 0; j < 15; j++) {
-//            std::cout <<  Board[i][j];
-//        }
-//        std::cout << std::endl;
-//    }
-//    std::cout << "=================" << std::endl;
 }
 
 // 棋盘不可点击
